@@ -15,15 +15,12 @@ class Player:
 
     def update(self): #my update function
         self.pix_pos == self.direction
-        if int(self.pix_pos.x + Top_Bottom_Buffer//2) % self.app.cell_width == 0:
-            if self.direction == vec(1,0) or self.direction == vec(-1,0):
+            if self.time_to_move():
                 if self.direction != None:
                     self.direction = self.stored_direction
         #
-        if int(self.pix_pos.x + Top_Bottom_Buffer//2) % self.app.cell_heigth == 0:
-            if self.direction == vec(0,1) or self.direction == vec(0,-1):
-                if self.direction != None:
-                    self.direction = self.stored_direction
+        
+
         # I am setting gird position in reference to the pixel position
         self.grid_pos[0] = (self.pix_pos[0] - Top_Bottom_Buffer + self.app.cell_width//2)//self.app.cell_width + 1      
         self.grid_pos[1] = (self.pix_pos[1] - Top_Bottom_Buffer + self.app.cell_height//2)//self.app.cell_height + 1
@@ -40,3 +37,12 @@ class Player:
 
     def get_pix_pos(self):
         return vec((self.grid_pos.x*self.app.cell_width) + Top_Bottom_Buffer//2 +self.app.cell_width//2, (self.grid_pos.y*self.app.cell_height) +Top_Bottom_Buffer//2 + self.app.cell_heigth//2)
+        print(selfgrid_pos, self.pix_pos)
+       
+    def time_to_move(self):
+        if int(self.pix_pos.x + Top_Bottom_Buffer//2) % self.app.cell_width == 0:
+            if self.direction == vec(1,0) or self.direction == vec(-1,0):
+                return True
+        if int(self.pix_pos.x + Top_Bottom_Buffer//2) % self.app.cell_heigth == 0:
+            if self.direction == vec(0,1) or self.direction == vec(0,-1):
+                return True
