@@ -13,6 +13,8 @@ class App:
         self.clock = pygame.time.Clock()
         self.running = True
         self.state = 'start'
+        
+        self.load()
         self.cell_width = Maze_width//28
         self.cell_height= Maze_height//30
         self.player = Player(self, Player_Starting_POS)
@@ -26,11 +28,33 @@ class App:
                 self.clock.tick(FPS)
         pygame.quit()
         sys.exit()
-    
+############################ HELPER FUNCTIONS ##################################
+
+    def draw_text(self, words, screen, pos, size, colour, font_name, centered=False):
+        font = pygame.font.SysFont(font_name, size)
+        text = font.render(words, False, colour)
+        text_size = text.get_size()
+        if centered:
+            pos[0] = pos[0]-text_size[0]//2
+            pos[1] = pos[1]-text_size[1]//2
+        screen.blit(text, pos)
+        def load(self):
+        self.background = pygame.image.load('maze.png')
+        self.background = pygame.transform.scale(self.background, (MAZE_WIDTH, MAZE_HEIGHT))
+        
+        
+        def draw_grid(self):
+            for x in range(WIDTH//self.cell_width):
+                pygame.draw.line(self.background, GREY, (x*self.cell_width, 0),
+                             (x*self.cell_width, HEIGHT))
+            for x in range(HEIGHT//self.cell_height):
+                pygame.draw.line(self.background, GREY, (0, x*self.cell_height),
+                             (WIDTH, x*self.cell_height)    
+            
     def intro_events(self):
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.running = False
+        if event.type == pygame.QUIT:
+            self.running = False
     
     def intro_update(self):
         pass
