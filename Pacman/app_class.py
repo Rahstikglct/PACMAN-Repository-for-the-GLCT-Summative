@@ -1,6 +1,6 @@
-import pygame, sys
+import pygame, sys, copy
 from settings import *
-
+from Player import *
 
 pygame.init()
 vec = pygame.math.Vector2
@@ -13,6 +13,11 @@ class App:
         self.running = True
         self.state = 'start'
 
+        self.load()
+        self.cell_width = Maze_width//28
+        self.cell_height= Maze_height//30
+        self.player = Player(self, Player_Starting_POS)
+        
     def run(self):
         while self.running:
             if self.state == 'start':
@@ -39,7 +44,10 @@ class App:
             pos[0] = pos[0]-text_size[0]//2
             pos[1] = pos[1]-text_size[1]//2
         screen.blit(text,pos)
-
+        
+    def load(self):
+        self.background = pygame.image.load('maze.png')
+        self.background = pygame.transform.scale(self.background, (MAZE_WIDTH, MAZE_HEIGHT))
 
 ########################## intro functions ###############################
     
