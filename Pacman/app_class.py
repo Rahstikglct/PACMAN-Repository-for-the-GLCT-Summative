@@ -70,8 +70,10 @@ class App:
         for x in range(HEIGHT//self.cell_height):
             pygame.draw.line(self.background, GREY, (0, x*self.cell_height),
                              (WIDTH, x*self.cell_height))
+        #This is to tell the collour of walls 
         for wall in self.walls:
-            pygame.draw.rect(self.background,)
+           pygame.draw.rect(self.background, (167, 179, 34), (coin.x*self.cell_width,
+                                                                coin.y*self.cell_height, self.cell_width, self.cell_height))
 
 ########################## intro functions ###############################
     
