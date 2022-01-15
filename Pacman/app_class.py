@@ -14,11 +14,12 @@ class App:
         self.state = 'start'
         self.cell_width = Maze_width//28
         self.cell_height= Maze_height//30
-        self.player = Player(self, Player_Starting_POS)
         self.walls = []
         self.coins = []
-
+        self.p_pos = None
         self.load()
+        
+        self.player = Player(self, self.p_pos)
         
         
     def run(self):
@@ -62,6 +63,13 @@ class App:
                         self.walls.append(vec(xidx, yidx))
                     elif char == "C":
                         self.coins.append(vec(xidx, yidx))
+                    elif char == "P":
+                        self.p_pos = [xidx, yidx]
+                    #elif char in ["2", "3", "4", "5"]:
+                       # self.e_pos.append([xidx, yidx])
+                    #elif char == "B":
+                        #pygame.draw.rect(self.background, BLACK, (xidx*self.cell_width, yidx*self.cell_height,
+                                                                  self.cell_width, self.cell_height))
         #print(len(self.walls))
    
      def draw_grid(self):
