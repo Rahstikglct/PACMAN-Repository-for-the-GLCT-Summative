@@ -1,7 +1,6 @@
-from cgitb import grey
 import pygame, sys, copy
 from settings import *
-from PacmanPlayer import *
+from Player import *
 
 pygame.init()
 vec = pygame.math.Vector2
@@ -17,6 +16,7 @@ class App:
         self.cell_height= Maze_height//30
         self.player = Player(self, Player_Starting_POS)
         self.walls = []
+        self.coins = []
 
         self.load()
         
@@ -27,7 +27,7 @@ class App:
                 self.start_events()
                 self.start_update()
                 self.start_draw()
-            elif self.state == 'playing':
+            elif self.state == 'playing'
                 self.playing_events()
                 self.playing_update()
                 self.playing_draw()
@@ -50,7 +50,7 @@ class App:
    
     def load(self):
         self.background = pygame.image.load('maze.png')
-        self.background = pygame.transform.scale(self.background, (Maze_width, Maze_height))
+        self.background = pygame.transform.scale(self.background, (MAZE_WIDTH, MAZE_HEIGHT))
         
         # Opening the walls file
         # creating walls list with co-ordinations of walls
@@ -64,15 +64,15 @@ class App:
                         self.coins.append(vec(xidx, yidx))
         #print(len(self.walls))
    
-    def draw_grid(self):
+     def draw_grid(self):
         for x in range(WIDTH//self.cell_width):
-            pygame.draw.line(self.background, Grey, (x*self.cell_width, 0),
+            pygame.draw.line(self.background, GREY, (x*self.cell_width, 0),
                              (x*self.cell_width, HEIGHT))
         for x in range(HEIGHT//self.cell_height):
-            pygame.draw.line(self.background, Grey, (0, x*self.cell_height),
+            pygame.draw.line(self.background, GREY, (0, x*self.cell_height),
                              (WIDTH, x*self.cell_height))
-        #This is to tell the collour of walls 
-        for wall in self.walls:
+        #This is to tell the collour of walls or coins
+        #for coin in self.walls:
            pygame.draw.rect(self.background, (167, 179, 34), (coin.x*self.cell_width,
                                                                 coin.y*self.cell_height, self.cell_width, self.cell_height))
 
@@ -90,7 +90,7 @@ class App:
         pass
 
     def start_draw(self):
-        self.screen.fill(Black)
+        self.screen.fill(BLACK)
         self.draw_text('PUSH SPACE BAR', self.screen, [WIDTH//2, HEIGHT//2], START_TEXT_SIZE, (170, 132, 58), START_FONT, centered = True)
         self.draw_text('1 PLAYER ONLY', self.screen, [WIDTH//2, HEIGHT//2+50], START_TEXT_SIZE, (44, 167, 198), START_FONT, centered = True)
         self.draw_text('HIGH SCORE', self.screen, [4,0], START_TEXT_SIZE, (255, 255, 255), START_FONT)
@@ -102,12 +102,34 @@ class App:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    self.player.move(vec(-1, 0))
+                if event.key == pygame.K_RIGHT:
+                    self.player.move(vec(1, 0))
+                if event.key == pygame.K_UP:
+                    self.player.move(vec(0, -1))
+                if event.key == pygame.K_DOWN:
+                    self.player.move(vec(0, 1))
 
 
     def playing_update(self):
-        pass
+        self.player.updates()
 
     def playing_draw(self):
-        self.screen.fill(Red)
-        pygame.display.update()
+        self.screen.fill(RED)
+        self.screen.blit(self.background, (TOP_BOTTOM_BUFFER//2, TOP_BOTTOM_BUFFER//2))
+        self.draw_coins()
+        #self.draw_grid()
+         self.draw_text('CURRENT SCORE: {}'.format(self.player.current_score),
+                       self.screen, [60, 0], 18, WHITE, START_FONT)
+        self.draw_text('HIGH SCORE: 0', self.screen, [WIDTH//2+60, 0], 18, WHITE, START_FONT)
+        self.player.draw()
+        pygame.display.updates()
+    def draw_coins(self):
+        for coin in self.coins:
+            pygame.draw.circle(self.screen, (124, 123, 7),
+                               (int(coin.x*self.cell_width)+self.cell_width//2+TOP_BOTTOM_BUFFER//2,
+                                int(coin.y*self.cell_height)+self.cell_height//2+TOP_BOTTOM_BUFFER//2), 5)
+        
 
