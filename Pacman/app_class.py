@@ -61,6 +61,7 @@ class App:
                         self.walls.append(vec(xidx, yidx))
                     elif char == "C":
                         self.coins.append(vec(xidx, yidx))
+        #print(len(self.walls))
    
      def draw_grid(self):
         for x in range(WIDTH//self.cell_width):
@@ -69,6 +70,8 @@ class App:
         for x in range(HEIGHT//self.cell_height):
             pygame.draw.line(self.background, GREY, (0, x*self.cell_height),
                              (WIDTH, x*self.cell_height))
+        for wall in self.walls:
+            pygame.draw.rect(self.background,)
 
 ########################## intro functions ###############################
     
