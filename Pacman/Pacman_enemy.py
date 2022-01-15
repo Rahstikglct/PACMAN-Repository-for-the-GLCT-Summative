@@ -20,12 +20,18 @@ class Enemy:
     def update(self):
         self.pix_pos += self.direction
         if self.time_to_move:
-            self.move
+            self.move()
 
     def draw(self):
         if self.number == 0:
             pygame.draw.circle(self.app.screen, self.colour, (int(self.pix_pos.x), int(self.pix_pos.y)), self.radius)
     
+    def time_to_move(self):
+        pass
+
+    def move(self):
+        pass
+
     def get_pix_pos(self):
         return vec((self.grid_pos.x*self.app.cell_width) + Top_Bottom_Buffer//2 +self.app.cell_width//2, (self.grid_pos.y*self.app.cell_height) +Top_Bottom_Buffer//2 + self.app.cell_heigth//2)
 
