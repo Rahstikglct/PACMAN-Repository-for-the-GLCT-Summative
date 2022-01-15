@@ -11,6 +11,8 @@ class Player:
         self. pix_pos = self.get_pix_pos()
         self.direction = vec(1,0)
         self.stored_direction = None
+        self.able_to_move = True
+        self.current_score = 0
 
 
     def update(self): #my update function
@@ -27,14 +29,26 @@ class Player:
         # I am setting gird position in reference to the pixel position
         self.grid_pos[0] = (self.pix_pos[0] - Top_Bottom_Buffer + self.app.cell_width//2)//self.app.cell_width + 1      
         self.grid_pos[1] = (self.pix_pos[1] - Top_Bottom_Buffer + self.app.cell_height//2)//self.app.cell_height + 1
+        if self.on_coin():
+            self.eat_coin()
+            
         pass
 
     def draw(self): 
         # my pacman circle function
         pygame.draw.circle(self.app.screen, Player_colour, (int(self.pix_pos.x)),(int(self.pix_pos.y)),self.app.cell_width//2-2) 
         # drawing the grid position rectangle
-        pygame.draw.rect(self.app.screen, Red, (self.grid_pos[0]*self.app.cell_width - Top_Bottom_Buffer//2, self.grid_pos[1] * self.app.cell_height - Top_Bottom_Buffer//2, self.app.cell.width, self.app.cell_height), 1)
-
+        #pygame.draw.rect(self.app.screen, Red, (self.grid_pos[0]*self.app.cell_width - Top_Bottom_Buffer//2, self.grid_pos[1] * self.app.cell_height - Top_Bottom_Buffer//2, self.app.cell.width, self.app.cell_height), 1)
+    
+    def on_coin(self):
+        if self.grid_pos in self.app.coins:
+            return True
+        else:
+            return False
+                  
+    def eat_coin(self)
+         self.app.coins.remove(self.gid_pos)
+         self.current_score = 1
     def move(self,direction):#my move function
         self.stored_direction = direction
 
