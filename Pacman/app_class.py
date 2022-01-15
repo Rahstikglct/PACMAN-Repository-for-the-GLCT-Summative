@@ -1,6 +1,7 @@
+from cgitb import grey
 import pygame, sys, copy
 from settings import *
-from Player import *
+from PacmanPlayer import *
 
 pygame.init()
 vec = pygame.math.Vector2
@@ -26,7 +27,7 @@ class App:
                 self.start_events()
                 self.start_update()
                 self.start_draw()
-            elif self.state == 'playing'
+            elif self.state == 'playing':
                 self.playing_events()
                 self.playing_update()
                 self.playing_draw()
@@ -49,7 +50,7 @@ class App:
    
     def load(self):
         self.background = pygame.image.load('maze.png')
-        self.background = pygame.transform.scale(self.background, (MAZE_WIDTH, MAZE_HEIGHT))
+        self.background = pygame.transform.scale(self.background, (Maze_width, Maze_height))
         
         # Opening the walls file
         # creating walls list with co-ordinations of walls
@@ -63,12 +64,12 @@ class App:
                         self.coins.append(vec(xidx, yidx))
         #print(len(self.walls))
    
-     def draw_grid(self):
+    def draw_grid(self):
         for x in range(WIDTH//self.cell_width):
-            pygame.draw.line(self.background, GREY, (x*self.cell_width, 0),
+            pygame.draw.line(self.background, Grey, (x*self.cell_width, 0),
                              (x*self.cell_width, HEIGHT))
         for x in range(HEIGHT//self.cell_height):
-            pygame.draw.line(self.background, GREY, (0, x*self.cell_height),
+            pygame.draw.line(self.background, Grey, (0, x*self.cell_height),
                              (WIDTH, x*self.cell_height))
         #This is to tell the collour of walls 
         for wall in self.walls:
@@ -89,7 +90,7 @@ class App:
         pass
 
     def start_draw(self):
-        self.screen.fill(BLACK)
+        self.screen.fill(Black)
         self.draw_text('PUSH SPACE BAR', self.screen, [WIDTH//2, HEIGHT//2], START_TEXT_SIZE, (170, 132, 58), START_FONT, centered = True)
         self.draw_text('1 PLAYER ONLY', self.screen, [WIDTH//2, HEIGHT//2+50], START_TEXT_SIZE, (44, 167, 198), START_FONT, centered = True)
         self.draw_text('HIGH SCORE', self.screen, [4,0], START_TEXT_SIZE, (255, 255, 255), START_FONT)
@@ -107,6 +108,6 @@ class App:
         pass
 
     def playing_draw(self):
-        self.screen.fill(RED)
+        self.screen.fill(Red)
         pygame.display.update()
 
