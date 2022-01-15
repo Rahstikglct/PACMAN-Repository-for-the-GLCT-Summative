@@ -12,11 +12,13 @@ class App:
         self.clock = pygame.time.Clock()
         self.running = True
         self.state = 'start'
-
-        self.load()
         self.cell_width = Maze_width//28
         self.cell_height= Maze_height//30
         self.player = Player(self, Player_Starting_POS)
+        self.walls = []
+
+        self.load()
+        
         
     def run(self):
         while self.running:
@@ -48,6 +50,18 @@ class App:
     def load(self):
         self.background = pygame.image.load('maze.png')
         self.background = pygame.transform.scale(self.background, (MAZE_WIDTH, MAZE_HEIGHT))
+        width open("walls.txt", 'r') as file:
+            for line in file:
+                print(line)
+    
+    def draw_grid(self):
+        for x in range (WIDTH//self.cell_width):
+            pygame.draw.line(self.background, GREY, (x*self.cell_width,0), 
+                             (x*self.cell_width, HEIGHT))
+         for x in range (HEIGHT//self.cell_width):
+            pygame.draw.line(self.background, GREY, (0, x*self.cell_height), 
+                             (WIDTH, x*self.cell_height,))
+
 
 ########################## intro functions ###############################
     
