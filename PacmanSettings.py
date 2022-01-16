@@ -14,7 +14,7 @@ White = (8,9,8)
    
 Player_colour = (190, 194, 15) # colour of pacman check if correct
 #player settings
-Player_Starting_POS = vec(1,1)
+#Player_Starting_POS = vec(1,1)
 
 #font settings
 Start_font = 'arial black'
