@@ -30,7 +30,28 @@ class Enemy:
         pass
 
     def move(self):
-        pass
+        if self.personality == "random":
+            self.direction = self.get_random_direction()
+        if self.personality == "slow":
+            self.direction = self.get_path_direction()
+        if self.personality == "speedy":
+            self.direction = self.get_path_direction()
+        if self.personality == "scared":
+            self.direction = self.get_path_direction()
+        
+    def get_path_direction(self):
+        next_cell = self.find_next_cell_in_path()
+        xdir = next_cell[0] - self.grid_pos[0]
+        ydir = next_cell[1] - self.grid_pos[1]
+        return vec(xdir, ydir)
+    
+    def find_next_cell_in_path(self):
+        path = self.BFS([int(self.grid_pos.x), int(self.grid_pos.y)], [int(self.app.player.grid_pos.x), int(self.app.player.grid_pos.y)])
+        return path[1]
+    
+    def BFS(self):
+        grid = [
+  
 
     def get_pix_pos(self):
         return vec((self.grid_pos.x*self.app.cell_width) + Top_Bottom_Buffer//2 +self.app.cell_width//2, (self.grid_pos.y*self.app.cell_height) +Top_Bottom_Buffer//2 + self.app.cell_heigth//2)
